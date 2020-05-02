@@ -19,8 +19,8 @@ Download and test it yourself!
 4. All images can be found there and the tool will close itself when its done
 
 
-## Changing Settings.ini
-If its your first time running the tool, it will create a Settings.ini file that holds the testing resolutions.
+## Changing Resolutions.ini
+If its your first time running the tool, it will create a resolutions.ini file that holds the testing resolutions.
 You can add, edit, remove any resolution you want and even create custom blocks too.
 
 **Example:**
