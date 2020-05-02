@@ -34,16 +34,14 @@ Mac - Work in progress
 
 
 ## Installation
-[Linux](#linux)
-[Windows](#windows)
-Mac (Work in progress)
+[Linux](#linux) | [Windows](#windows) | Mac (Work in progress)
 
 #### Linux
-1. Open terminal and install Chromium if you dont have it:
+1. Open terminal and install Chromium if you don't have it:
 ```sh
 $ sudo apt install chromium
 ```
-2. Install Chromedriver if you dont have that too:
+2. Install ChromeDriver if you don't have that too:
 ```sh
 $ sudo apt install chromium-chromedriver
 ```
@@ -64,6 +62,22 @@ $ sudo cp /path/to/webshot /usr/local/bin/webshot
 1. Download the tool from the Releases page
 2. Unzip it and place it whereever you want
 3. Run WebShot.exe
+4. WebShot will create a resolutions.ini file where you can chande, add or remove resolutions
+5. WebShot will try to download the latest chromedriver.exe from the official website
+
+## Troubleshooting
+#### Windows
+If you encounter any problems, please try to delete the "chromedriver.exe" inside the root folder of WebShot.exe and try to run it again.
+ChromeDriver.exe runs and talks to your chrome.exe browser. In case the versions are different, chromedriver.exe will sometimes make problems.
+In this case, if you delete the chromedriver.exe and let WebShot redownload it again, this should fix most of the problems.
+
+#### Linux
+In case you are having problems, please open Terminal and type:
+```sh
+$ chromium --version
+$ chromedriver --version
+```
+Check if the versions are the same. In case they are not, please apt update them.
 
 
 ## Todos
