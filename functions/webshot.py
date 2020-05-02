@@ -8,7 +8,7 @@ from colorama import init
 from alive_progress import alive_bar, config_handler
 from resolutions.resolutions import *
 from functions.browser import *
-from version import version
+from version import *
 import configparser
 
 # use Colorama to make Termcolor work on Windows too
@@ -56,7 +56,7 @@ def welcome_screen():
 
     print("|")
     print("| " + Back.RED + "Welcome to WebShot [Website ScreenShot Tool for Frontend developers]." + Style.RESET_ALL)
-    print("| Version " + version + " | Licence GNU GPLv3")
+    print("| Version " + get_version() + " | Licence GNU GPLv3")
     print("|")
     print("| " + Back.RED + "How to use:" + Style.RESET_ALL)
     print("| ""Paste or enter URL when asked and just wait until the app closes.")
