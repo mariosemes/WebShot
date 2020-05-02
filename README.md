@@ -2,7 +2,7 @@
   <img width="180" height="180" src="https://github.com/mariosemes/WebShot/blob/master/images/logo.png?raw=true">
 </p>
 
-## WebShot Desktop Tool
+# WebShot - Make your life easier.
 
 [![GitHub Release](https://github-basic-badges.herokuapp.com/release/mariosemes/WebShot.svg)]() [![GitHub Download Count](https://github-basic-badges.herokuapp.com/downloads/mariosemes/WebShot/total.svg)]() [![GitHub Issues Open](https://github-basic-badges.herokuapp.com/issues/mariosemes/WebShot.svg)]()
 
