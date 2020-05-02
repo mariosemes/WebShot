@@ -1,19 +1,33 @@
-<p align="center">
+<p align="left">
   <img width="180" height="180" src="https://github.com/mariosemes/WebShot/blob/master/images/logo.png?raw=true">
 </p>
 
-<p align="center">
-**WebShot Desktop Tool**
+## WebShot Desktop Tool
 
 [![GitHub Release](https://github-basic-badges.herokuapp.com/release/mariosemes/WebShot.svg)]() [![GitHub Download Count](https://github-basic-badges.herokuapp.com/downloads/mariosemes/WebShot/total.svg)]() [![GitHub Issues Open](https://github-basic-badges.herokuapp.com/issues/mariosemes/WebShot.svg)]()
 
 Website Screenshot Tool for Frontend Developers & Web Designers.
 The tool creates screenshots of the website you are working on in defined resolutions.
 Download and test it yourself!
-</p>
 
 ![optimisation](https://github.com/mariosemes/WebShot/blob/master/images/preview.png?raw=true)
 
+## How to use
+1. Run the Tool
+2. When asked, paste or write the URL you want to check
+3. The tool will create a folder on your desktop named based on the domain
+4. All images can be found there and the tool will close itself when its done
+
+
+## Changing Settings.ini
+If its your first time running the tool, it will create a Settings.ini file that holds the testing resolutions.
+You can add, edit, remove any resolution you want and even create custom blocks too.
+
+**Example:**
+```sh
+[MyTestingResolutions]
+ThisIsMyTestingResolution = 1024x1024
+```
 
 ## Download for Windows/Linux - [Releases page](https://github.com/mariosemes/WebShot/releases/)
 Mac - Work in progress
