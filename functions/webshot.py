@@ -1,16 +1,11 @@
-import requests
-import time
+import os.path
 import validators
-from pathlib import Path
-from sys import platform
 from colorama import Fore, Back, Style
 from colorama import init
 from alive_progress import alive_bar, config_handler
-from resolutions.resolutions import *
-from functions.browser import *
 from version import *
 from functions.startup import *
-import configparser
+from functions.browser import *
 
 # use Colorama to make Termcolor work on Windows too
 init()
@@ -26,7 +21,7 @@ class MyParser(configparser.ConfigParser):
 
 
 f = MyParser()
-f.read("settings.ini")
+f.read("resolutions.ini")
 resolution = f.as_dict()
 
 

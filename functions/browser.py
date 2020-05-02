@@ -6,25 +6,30 @@ from Screenshot import Screenshot_Clipping
 from pathlib import Path
 from sys import platform
 from random import randint
+import configparser
+import time
+
+
+class MyParser(configparser.ConfigParser):
+    def as_dict(self):
+        d = dict(self._sections)
+        for k in d:
+            d[k] = dict(self._defaults, **d[k])
+            d[k].pop('__name__', None)
+        return d
 
 
 # Controller for checking when the path is in the compiled version or in the raw one
-def resource_path(relative_path):
-    try:
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.dirname(__file__)
-    return os.path.join(base_path, relative_path)
+def resource_path():
+    f = MyParser()
+    f.read("settings.ini")
+    path = f.as_dict()
+    path = path["settings"]["chromepath"]
+    return path
 
 
 # Function to open a new browser Session
 def open_session():
-    # Chromedriver path defined per OS - Linux not needed
-    if platform == "darwin":
-        chromedriver = "../utils/chromedriver"
-    elif platform == "win32":
-        chromedriver = "..\\utils\\chromedriver.exe"
-
     # Chromedriver options
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
@@ -37,11 +42,7 @@ def open_session():
         options.add_argument("--remote-debugging-port=" + str(random_port))
 
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
-
-    if platform == "linux" or platform == "linux2":
-        driver = webdriver.Chrome(options=options)
-    else:
-        driver = webdriver.Chrome(executable_path=resource_path(chromedriver), options=options)
+    driver = webdriver.Chrome(options=options)
 
     executor_url = driver.command_executor._url
     session_id = driver.session_id

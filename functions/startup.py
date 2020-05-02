@@ -1,8 +1,12 @@
 import time
+import configparser
+import os.path
+from sys import platform
+from functions.chromiumdler import *
 
-def create_settings_file():
+def create_resolutions_file():
     print("Creating settings.ini file.")
-    f = open("settings.ini", "w+")
+    f = open("resolutions.ini", "w+")
     f.write("[desktop]\n")
     f.write("Full HD = 1920x1080\n")
     f.write("Laptop 17 = 1536x864\n")
@@ -33,12 +37,21 @@ def create_settings_file():
 
 
 def startup_check():
+    if platform == "win32":
+        if path.exists("chromedriver.exe"):
+            print("ChromeDriver exists.")
+        else:
+            chromium_downloader()
+
     try:
-        with open('settings.ini') as f:
-            print("Settings file exists.")
+        with open('resolutions.ini') as f:
+            print("Resolution file exists.")
     except FileNotFoundError:
-        print("Settings file does not exists.")
-        create_settings_file()
+        print("Resolution file does not exists.")
+        create_resolutions_file()
         time.sleep(3)
-        print("Checking if the file is created.")
-        startup_check()
+        print("Restart the app.")
+        time.sleep(3)
+        exit()
+
+
