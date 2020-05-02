@@ -69,7 +69,8 @@ $ sudo cp /path/to/webshot /usr/local/bin/webshot
 ## Todos
 
  - Create ERROR logging
- - First run checker
+ - ~~First run checker~~
+ - Create custom resolution validator
 
 License
 ----
