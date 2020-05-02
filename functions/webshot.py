@@ -25,7 +25,6 @@ class MyParser(configparser.ConfigParser):
         return d
 
 
-# Reading Settings ini file and converting the resolution list in to a dictionary
 f = MyParser()
 f.read("settings.ini")
 resolution = f.as_dict()

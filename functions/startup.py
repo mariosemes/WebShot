@@ -1,3 +1,5 @@
+import time
+
 def create_settings_file():
     print("Creating settings.ini file.")
     f = open("settings.ini", "w+")
@@ -37,5 +39,6 @@ def startup_check():
     except FileNotFoundError:
         print("Settings file does not exists.")
         create_settings_file()
+        time.sleep(3)
         print("Checking if the file is created.")
         startup_check()

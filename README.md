@@ -8,6 +8,8 @@
 [![GitHub Release](https://github-basic-badges.herokuapp.com/release/mariosemes/WebShot.svg)]() [![GitHub Download Count](https://github-basic-badges.herokuapp.com/downloads/mariosemes/WebShot/total.svg)]() [![GitHub Issues Open](https://github-basic-badges.herokuapp.com/issues/mariosemes/WebShot.svg)]()
 
 Website Screenshot Tool for Frontend Developers & Web Designers.
+The tool creates screenshots of the website you are working on in defined resolutions.
+Download and test it yourself!
 </p>
 
 ![optimisation](https://github.com/mariosemes/WebShot/blob/master/images/preview.png?raw=true)
