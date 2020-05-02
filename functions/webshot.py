@@ -9,6 +9,7 @@ from alive_progress import alive_bar, config_handler
 from resolutions.resolutions import *
 from functions.browser import *
 from version import *
+from functions.startup import *
 import configparser
 
 # use Colorama to make Termcolor work on Windows too
@@ -176,6 +177,7 @@ def start_script(url):
 
 
 def kickstarter():
+    startup_check()
     welcome_screen()
 
     # Ask for URL at start

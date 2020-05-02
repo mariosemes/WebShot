@@ -29,6 +29,7 @@ def create_settings_file():
     f.write("iPhone Xs = 375x812\n")
     f.close()
 
+
 def startup_check():
     try:
         with open('settings.ini') as f:
@@ -38,5 +39,3 @@ def startup_check():
         create_settings_file()
         print("Checking if the file is created.")
         startup_check()
-
-startup_check()
