@@ -3,9 +3,9 @@ import validators
 from colorama import Fore, Back, Style
 from colorama import init
 from alive_progress import alive_bar, config_handler
-from version import *
 from functions.startup import *
 from functions.browser import *
+from version import *
 
 # use Colorama to make Termcolor work on Windows too
 init()
@@ -172,6 +172,7 @@ def start_script(url, driver, session_id, executor_url):
 
 def kickstarter():
     startup_check()
+    check_verion()
     welcome_screen()
     # starting browser session
     driver, session_id, executor_url = open_session()
