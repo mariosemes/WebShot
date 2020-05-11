@@ -46,6 +46,7 @@ login_button =
 ```
 Let me explain every single one of them:
 ```sh
+[login] = name of block, dont CHANGE!!!
 login_url = https://yourdomain.com/wp-admin (selfexplainable but something like this)
 user_x_path = /html/body/div[2]/div[2]/div[1]/ (XPath of the username input field)
 username = your_user_name (your username)
@@ -55,6 +56,7 @@ login_button = /html/body/div[2]/div[3]/div[4]/ (XPath of the login button field
 ```
 So, a good example of a login.ini file would look like this:
 ```sh
+[login]
 login_url = https://yourdomain.com/wp-admin
 user_x_path = /html/body/div[2]/div[2]/div[1]/
 username = thisismynickname
