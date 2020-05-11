@@ -36,6 +36,26 @@ def create_resolutions_file():
     f.close()
 
 
+def create_version_file():
+    try:
+        os.mkdir("logins")
+    except OSError:
+        print("Creation of the directory %s failed" % path)
+
+    file = os.path.join("logins", filename)
+    file = file + ".ini"
+    print(f"Creating {filename}.ini file.")
+    f = open(file, "w+")
+    f.write("[login]\n")
+    f.write("login_url = \n")
+    f.write("user_x_path = \n")
+    f.write("username = \n")
+    f.write("pass_x_path = \n")
+    f.write("password = \n")
+    f.write("login_button = \n")
+    f.close()
+
+
 def create_login_ini(filename):
     try:
         os.mkdir("logins")

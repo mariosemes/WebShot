@@ -1,11 +1,9 @@
 import urllib.request
 
 
+
 def get_version():
-    version_file = open(r"version.txt", "r")
-    version = version_file.readline()
-    version_file.close()
-    version = str(version)
+    version = "0.3"
     return version
 
 
