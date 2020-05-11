@@ -5,24 +5,14 @@ from colorama import init
 from alive_progress import alive_bar, config_handler
 from functions.startup import *
 from functions.browser import *
+from functions.login import *
+from functions.functions import *
 from version import *
 
 # use Colorama to make Termcolor work on Windows too
 init()
 
-
-class MyParser(configparser.ConfigParser):
-    def as_dict(self):
-        d = dict(self._sections)
-        for k in d:
-            d[k] = dict(self._defaults, **d[k])
-            d[k].pop('__name__', None)
-        return d
-
-
-f = MyParser()
-f.read("resolutions.ini")
-resolution = f.as_dict()
+resolution = read_ini_as_dict("resolutions.ini")
 
 
 # Function to clean the screen in the CMD or TERMINAL
@@ -78,7 +68,6 @@ def get_folder_name(url):
 
 # Function that makes all of it happen
 def open_site(url, device_platform, width, height, driver, session_id, executor_url):
-
     ob = Screenshot_Clipping.Screenshot()
 
     bro = attach_to_session(executor_url, session_id)
@@ -107,7 +96,6 @@ def open_site(url, device_platform, width, height, driver, session_id, executor_
     else:
         print("| Folder created Successfully")
 
-
     # Getting fullpage screenshot
     img_url = ob.full_Screenshot(driver, save_path=folderpath,
                                  image_name=device_platform + '-' + str(width) + "x" + str(height) + '.jpg')
@@ -132,7 +120,7 @@ def check_url(url):
 # Function to check if the URL is Valid
 def check_url_if_valid(url):
     valid = validators.url(check_url(url))
-    if valid == True:
+    if valid:
         return True
     else:
         return False
@@ -155,9 +143,10 @@ def start_script(url, driver, session_id, executor_url):
                     time.sleep(3)
                     kickstarter()
 
-    # Opening the final folder
+    # Getting Working Directory
     path = str(Path.home())
-    folderpath = os.path.join(path, "Desktop", get_folder_name(url))
+    domainname, fullname = get_folder_name(url)
+    folderpath = os.path.join(path, "Desktop", domainname)
 
     if platform == "linux" or platform == "linux2":
         os.system('xdg-open "%s"' % folderpath)
@@ -165,9 +154,6 @@ def start_script(url, driver, session_id, executor_url):
         os.system('open "%s"' % folderpath)
     elif platform == "win32":
         os.startfile(folderpath)
-
-    # Closing the Browser session
-    close_session(driver)
 
 
 def kickstarter():
@@ -180,8 +166,10 @@ def kickstarter():
     while True:
         print("| Options:")
         print("| 1) WebShot Single Url")
-        print("| 2) WebShot Multiple Urls")
-        # print("| 3) Something custom... incoming")
+        print("| 2) WebShot Single Url with login")
+        print("| 3) WebShot Multiple Urls")
+        print("| 4) WebShot Multiple Urls with login")
+        print("| 5) Create new login.ini")
 
         u1_input = input("| Please select an option: ")
         if u1_input == "1":
@@ -191,8 +179,23 @@ def kickstarter():
             else:
                 # Starting the Testing script
                 start_script(u2_input, driver, session_id, executor_url)
+                close_session(driver)
                 kickstarter()
         elif u1_input == "2":
+            u2_input = input("| Paste or Enter URL: ")
+            if u2_input == "":
+                print("Missing url. Try again.")
+            else:
+                list_all_ini()
+                u3_input = input("| Select an login.ini file: ")
+                if u3_input == "":
+                    print("Missing url. Try again.")
+                else:
+                    login_to_site(select_ini_file(u3_input), session_id, executor_url)
+                    start_script(u2_input, driver, session_id, executor_url)
+                    close_session(driver)
+                    kickstarter()
+        elif u1_input == "3":
             url_list = []
             while True:
                 print("| Urls in list:")
@@ -206,6 +209,7 @@ def kickstarter():
                     # Starting the Testing script
                     for url in url_list:
                         start_script(url, driver, session_id, executor_url)
+                    close_session(driver)
                     kickstarter()
                 elif u2_input.lower() == "c":
                     print("| Operation canceled.")
@@ -218,9 +222,46 @@ def kickstarter():
                     else:
                         print("| URL not valid, please check it again.")
                         continue
-
-        # elif u1_input == "3":
-        #     print("Third option selected")
+        elif u1_input == "4":
+            url_list = []
+            while True:
+                print("| Urls in list:")
+                for item in url_list:
+                    print("| " + item)
+                print("|")
+                u2_input = input("| Paste or Enter URL (type 'done' to finish or 'c' to cancel): ")
+                if u2_input == "":
+                    print("| Missing url. Try again.")
+                elif u2_input.lower() == "done":
+                    list_all_ini()
+                    u3_input = input("| Select an login.ini file: ")
+                    if u3_input == "":
+                        print("Missing url. Try again.")
+                    else:
+                        login_to_site(select_ini_file(u3_input), session_id, executor_url)
+                        for url in url_list:
+                            start_script(url, driver, session_id, executor_url)
+                    close_session(driver)
+                    kickstarter()
+                elif u2_input.lower() == "c":
+                    print("| Operation canceled.")
+                    break
+                else:
+                    if check_url_if_valid(u2_input):
+                        print("| URL Valid. Adding to list.")
+                        url = check_url(u2_input)
+                        url_list.append(url)
+                    else:
+                        print("| URL not valid, please check it again.")
+                        continue
+        elif u1_input == "5":
+            u5_input = input("| Enter file name: ")
+            if u5_input == "":
+                print("| Missing url. Try again.")
+            else:
+                create_login_ini(u5_input)
+            close_session(driver)
+            kickstarter()
         else:
             print("Nothing selected. Try again")
             continue

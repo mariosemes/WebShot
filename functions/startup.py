@@ -5,7 +5,7 @@ from sys import platform
 from functions.chromiumdler import *
 
 def create_resolutions_file():
-    print("Creating settings.ini file.")
+    print("Creating resolutions.ini file.")
     f = open("resolutions.ini", "w+")
     f.write("[desktop]\n")
     f.write("Full HD = 1920x1080\n")
@@ -34,6 +34,33 @@ def create_resolutions_file():
     f.write("iPhone 6Plus / 6S Plus = 414x736\n")
     f.write("iPhone Xs = 375x812\n")
     f.close()
+
+
+def create_login_ini(filename):
+    try:
+        os.mkdir("logins")
+    except OSError:
+        print("Creation of the directory %s failed" % path)
+
+    file = os.path.join("logins", filename)
+    file = file + ".ini"
+    print(f"Creating {filename}.ini file.")
+    f = open(file, "w+")
+    f.write("[login]\n")
+    f.write("login_url = \n")
+    f.write("user_x_path = \n")
+    f.write("username = \n")
+    f.write("pass_x_path = \n")
+    f.write("password = \n")
+    f.write("login_button = \n")
+    f.close()
+
+    if platform == "linux" or platform == "linux2":
+        os.system('xdg-open "%s"' % file)
+    elif platform == "darwin":
+        os.system('open "%s"' % file)
+    elif platform == "win32":
+        os.startfile(file)
 
 
 def startup_check():

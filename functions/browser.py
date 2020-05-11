@@ -2,6 +2,7 @@ import os
 import os.path
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.common.keys import Keys
 from Screenshot import Screenshot_Clipping
 from pathlib import Path
 from sys import platform
