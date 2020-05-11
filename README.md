@@ -14,9 +14,10 @@ Download and test it yourself!
 
 ## How to use
 1. Run the Tool
-2. When asked, paste or write the URL you want to check
-3. The tool will create a folder on your desktop named based on the domain
-4. All images can be found there and the tool will close itself when its done
+2. Select one of the given options
+3. When asked, paste or write the URL you want to check
+4. The tool will create a folder on your desktop based on the domain name
+5. At the end, the tool will open up the folder where the WebShots are
 
 
 ## Changing Resolutions.ini
@@ -28,6 +29,41 @@ You can add, edit, remove any resolution you want and even create custom blocks 
 [MyTestingResolutions]
 ThisIsMyTestingResolution = 1024x1024
 ```
+
+## Using the LOGIN option
+If your website user needs to be logged in to see the website, that's when you need the LOGIN option.
+Run the tool and select "Create new login.ini" and type whatever name you want it to be, like (wordpress).
+The tool will create a file name wordpress.ini and open it up so it will look like this:
+
+```sh
+[login]
+login_url = 
+user_x_path = 
+username = 
+pass_x_path = 
+password = 
+login_button = 
+```
+Let me explain every single one of them:
+```sh
+login_url = https://yourdomain.com/wp-admin (selfexplainable but something like this)
+user_x_path = /html/body/div[2]/div[2]/div[1]/ (XPath of the username input field)
+username = your_user_name (your username)
+pass_x_path = /html/body/div[2]/div[3]/div[2]/ (XPath of the password input field)
+password = your_password (your password)
+login_button = /html/body/div[2]/div[3]/div[2]/ (XPath of the login button field)
+```
+So, a good example of a login.ini file would look like this:
+```sh
+login_url = https://yourdomain.com/wp-admin
+user_x_path = /html/body/div[2]/div[2]/div[1]/
+username = thisismynickname
+pass_x_path = /html/body/div[2]/div[3]/div[2]/
+password = your_password
+login_button = /html/body/div[2]/div[3]/div[2]/
+```
+Thats it.
+When you are done with editing the create "wordpress.ini" login file, select an option on the tool that ends with "with login" as "WebShot Single Url with Login" and the tool will ask you to select one of the created .ini files.
 
 ## Download for Windows/Linux - [Releases page](https://github.com/mariosemes/WebShot/releases/)
 Mac - Work in progress
