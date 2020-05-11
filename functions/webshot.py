@@ -67,15 +67,17 @@ def welcome_screen():
 
 # Creating the folder name out of the domain
 def get_folder_name(url):
-    fullname = url.replace('https://', '')
-    fullname = fullname.replace('/', '_')
-    return fullname
+    domainname = url.split("//")[-1].split("/")[0].split('?')[0].replace('www.', '')
+    fullname = url.replace('https://', '').replace('/', '-').replace('www.', '').replace(domainname, '')[1:]
+    if fullname == "":
+        fullname = "root"
+    elif fullname[-1] == "-":
+        fullname = fullname[:-1]
+    return domainname, fullname
 
 
 # Function that makes all of it happen
-def open_site(url, device_platform, width, height):
-    # Opening Browser session
-    driver, session_id, executor_url = open_session()
+def open_site(url, device_platform, width, height, driver, session_id, executor_url):
 
     ob = Screenshot_Clipping.Screenshot()
 
@@ -90,20 +92,21 @@ def open_site(url, device_platform, width, height):
     print("| Height: " + Fore.GREEN + str(height) + Style.RESET_ALL)
     print("|")
     print(
-        "| Actual " + Fore.GREEN + device_platform + Style.RESET_ALL + " size check: " + str(driver.get_window_size()))
+        "| Actual " + Fore.GREEN + device_platform + Style.RESET_ALL + " size check: " + str(bro.get_window_size()))
 
-    fullname = get_folder_name(url)
+    domainname, fullname = get_folder_name(url)
 
     # Getting Working Directory
     path = str(Path.home())
-    folderpath = os.path.join(path, "Desktop", fullname, device_platform)
+    folderpath = os.path.join(path, "Desktop", domainname, fullname, device_platform)
 
     try:
         os.makedirs(folderpath)
     except OSError:
-        print("| Folder already Exists")
+        pass
     else:
         print("| Folder created Successfully")
+
 
     # Getting fullpage screenshot
     img_url = ob.full_Screenshot(driver, save_path=folderpath,
@@ -135,10 +138,7 @@ def check_url_if_valid(url):
         return False
 
 
-def start_script(url):
-    open_session()
-    driver, session_id, executor_url = open_session()
-
+def start_script(url, driver, session_id, executor_url):
     config_handler.set_global(spinner='message_scrolling')
     items = range(20)
 
@@ -148,7 +148,7 @@ def start_script(url):
             for r in resolution[web]:
                 desktop_w, desktop_h = resolution[web][r].split("x")
                 if check_url_if_valid(url):
-                    open_site(check_url(url), web, desktop_w, desktop_h)
+                    open_site(check_url(url), web, desktop_w, desktop_h, driver, session_id, executor_url)
                     bar()
                 else:
                     print("URL non existing.")
@@ -173,11 +173,53 @@ def start_script(url):
 def kickstarter():
     startup_check()
     welcome_screen()
+    # starting browser session
+    driver, session_id, executor_url = open_session()
 
-    # Ask for URL at start
-    u_input = input("| Paste or Enter URL: ")
-    if u_input == "":
-        print("Missing url. Try again.")
-    else:
-        # Starting the Testing script
-        start_script(u_input)
+    while True:
+        print("| Options:")
+        print("| 1) WebShot Single Url")
+        print("| 2) WebShot Multiple Urls")
+        # print("| 3) Something custom... incoming")
+
+        u1_input = input("| Please select an option: ")
+        if u1_input == "1":
+            u2_input = input("| Paste or Enter URL: ")
+            if u2_input == "":
+                print("Missing url. Try again.")
+            else:
+                # Starting the Testing script
+                start_script(u2_input, driver, session_id, executor_url)
+                kickstarter()
+        elif u1_input == "2":
+            url_list = []
+            while True:
+                print("| Urls in list:")
+                for item in url_list:
+                    print("| " + item)
+                print("|")
+                u2_input = input("| Paste or Enter URL (type 'done' to finish or 'c' to cancel): ")
+                if u2_input == "":
+                    print("| Missing url. Try again.")
+                elif u2_input.lower() == "done":
+                    # Starting the Testing script
+                    for url in url_list:
+                        start_script(url, driver, session_id, executor_url)
+                    kickstarter()
+                elif u2_input.lower() == "c":
+                    print("| Operation canceled.")
+                    break
+                else:
+                    if check_url_if_valid(u2_input):
+                        print("| URL Valid. Adding to list.")
+                        url = check_url(u2_input)
+                        url_list.append(url)
+                    else:
+                        print("| URL not valid, please check it again.")
+                        continue
+
+        # elif u1_input == "3":
+        #     print("Third option selected")
+        else:
+            print("Nothing selected. Try again")
+            continue
