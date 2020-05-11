@@ -1,0 +1,7 @@
+configparser~=5.0.0
+selenium~=3.141.0
+validators~=0.15.0
+colorama~=0.4.3
+wget~=3.2
+beautifulsoup4~=4.9.0
+lxml~=4.5.0
